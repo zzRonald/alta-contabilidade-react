@@ -1,4 +1,4 @@
-# Alta Contabilidade - Projeto com REACT
+# Alta Contabilidade
 
 ## Descrição
 
@@ -14,19 +14,15 @@ Alta Contabilidade é uma aplicação web desenvolvida em React que oferece uma 
 
 ## Tecnologias Utilizadas
 
-
-            <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+<div style="display: inline_block"><br>
+  <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg">
+  <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+      <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
+      <img align="center" alt="Rafa-HTML" height="40" width="45" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" />
+            
           
-
-            <i class="devicon-html5-plain"></i>
+</div>
           
-
-            <i class="devicon-css3-plain"></i>
-          
-
-            <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-          
-
 ## Como Executar o Projeto
 
 1. **Clone o repositório**:
