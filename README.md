@@ -14,10 +14,18 @@ Alta Contabilidade é uma aplicação web desenvolvida em React que oferece uma 
 
 ## Tecnologias Utilizadas
 
-- **React**: Biblioteca JavaScript para construção de interfaces de usuário.
-- **HTML5**: Estruturação do conteúdo da página.
-- **CSS3**: Estilização da aplicação.
-- **JavaScript**: Lógica de interação e manipulação do DOM.
+
+            <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+          
+
+            <i class="devicon-html5-plain"></i>
+          
+
+            <i class="devicon-css3-plain"></i>
+          
+
+            <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+          
 
 ## Como Executar o Projeto
 
