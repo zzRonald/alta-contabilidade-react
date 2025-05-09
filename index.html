@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Alta Contabilidade - Excelência em Gestão Financeira (React)</title>
+  <style>
+    /* Reset and base */
+    * {
+      margin:0; padding:0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #3b4a5a;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-size-adjust: 100%;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor:pointer;
+    }
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    /* Header */
+    header {
+      background: #dce7f2;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(59,74,90,0.1);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #374e6f;
+      letter-spacing: 2px;
+      user-select: none;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    nav ul li {
+      margin-left: 2rem;
+    }
+    nav ul li a {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #374e6f;
+      padding: 0.25rem 0.4rem;
+      position: relative;
+      transition: color 0.3s ease;
+      outline-offset: 3px;
+    }
+    nav ul li a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #6a93c9;
+      transition: width 0.3s ease;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+    nav ul li a:hover, nav ul li a:focus {
+      color: #4c71ac;
+    }
+    nav ul li a:hover::after,
+    nav ul li a:focus::after {
+      width: 100%;
+    }
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #a8c0ff 0%, #c2e0ff 100%);
+      padding: 3rem 1rem 5rem 1rem;
+      border-radius: 0 0 40% 0 / 80% 0 20% 0;
+      color: #152341;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      max-width: 600px;
+      margin: 0 auto 1rem auto;
+      letter-spacing: 1.5px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.12);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem auto;
+      font-weight: 500;
+      opacity: 0.85;
+    }
+    .btn-primary {
+      background: #5978c9;
+      color: #f5f7fa;
+      padding: 1rem 2.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(89,120,201,0.35);
+      transition: background 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      user-select: none;
+    }
+    .btn-primary:hover, .btn-primary:focus {
+      background: #4258a1;
+      box-shadow: 0 12px 30px rgba(66,88,161,0.45);
+      transform: scale(1.05);
+      outline: none;
+    }
+    /* Wave animation bottom */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 200%;
+      height: 120px;
+      background: radial-gradient(circle at 50% 80%, rgba(89,120,201,0.6) 60%, transparent 100%);
+      animation: wave 6s ease-in-out infinite;
+      transform-origin: center bottom;
+      border-radius: 45%;
+      filter: blur(12px);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes wave {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(8deg);
+      }
+    }
+    /* About Section */
+    .about {
+      background: #fff;
+      padding: 3rem 1rem 4rem 1rem;
+      border-radius: 20px;
+      margin-top: -4.5rem;
+      box-shadow: 0 10px 30px rgba(59,74,90,0.07);
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      user-select: text;
+    }
+    .about.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .about h2 {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #34518a;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+    .about p {
+      font-size: 1.1rem;
+      color: #566074;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    /* Services Section */
+    .services {
+      padding: 4rem 1rem 5rem 1rem;
+      background: #f0f4fc;
+      border-radius: 20px;
+      max-width: 1100px;
+      margin: 0 auto 3rem auto;
+    }
+    .services h2 {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #324a7a;
+      margin-bottom: 2rem;
+    }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 2.2rem;
+    }
+    .service-card {
+      background: #ffffffcc;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(89,120,201,0.12);
+      padding: 2rem 1.5rem;
+      cursor: pointer;
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select:none;
+      outline-offset: 4px;
+    }
+    .service-card:hover, .service-card:focus {
+      box-shadow: 0 14px 30px rgba(89,120,201,0.35);
+      transform: scale(1.1);
+      outline: none;
+      background: #e7f0ffcc;
+    }
+    .service-icon {
+      font-size: 3.5rem;
+      color: #5978c9;
+      margin-bottom: 1rem;
+    }
+    .service-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+      color: #324a7a;
+      text-align: center;
+    }
+    .service-desc {
+      font-size: 0.95rem;
+      color: #566074;
+      text-align: center;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+    /* Testimonials */
+    .testimonials {
+      background: #fff;
+      padding: 3rem 1rem 5rem 1rem;
+      border-radius: 20px;
+      max-width: 900px;
+      margin: 0 auto 3rem auto;
+      box-shadow: 0 10px 30px rgba(59,74,90,0.07);
+      user-select: text;
+    }
+    .testimonials h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #34518a;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .testimonial-quotes {
+      font-style: italic;
+      font-size: 1rem;
+      color: #4a5b73;
+      margin-bottom: 1rem;
+      min-height: 70px;
+      user-select:none;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #5978c9;
+      text-align: right;
+      user-select:none;
+    }
+    .testimonial-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .testimonial-nav button {
+      background: #5978c9;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.4rem;
+      border-radius: 24px;
+      color: #f5f7fa;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 7px 16px rgba(89,120,201,0.35);
+      transition: background 0.3s ease, transform 0.25s ease;
+      user-select:none;
+      outline-offset: 3px;
+    }
+    .testimonial-nav button:hover, .testimonial-nav button:focus {
+      background: #4258a1;
+      outline: none;
+      transform: scale(1.1);
+    }
+    /* Contact Section */
+    .contact {
+      background: #dce7f2;
+      padding: 3.5rem 1rem 4.5rem 1rem;
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
+      box-shadow: 0 10px 30px rgba(59,74,90,0.1);
+    }
+    .contact h2 {
+      font-weight: 800;
+      color: #34518a;
+      font-size: 1.9rem;
+      margin-bottom: 1.7rem;
+      text-align: center;
+      user-select:none;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: 600;
+      color: #324a7a;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+      user-select:none;
+    }
+    input, textarea {
+      padding: 0.75rem 1rem;
+      border: 2px solid #9bb0d5;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: none;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      border-color: #5978c9;
+      outline: none;
+    }
+    .input-error {
+      border-color: #d9534f !important;
+    }
+    .error-message {
+      color: #d9534f;
+      font-size: 0.83rem;
+      margin: 0.2rem 0 0.8rem 0;
+      font-weight: 600;
+      user-select:none;
+    }
+    button[type="submit"] {
+      margin-top: 1.6rem;
+      background: #5978c9;
+      color: #f5f7fa;
+      padding: 1rem 0;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(89,120,201,0.35);
+      transition: background 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      user-select:none;
+    }
+    button[type="submit"]:hover, button[type="submit"]:focus {
+      background: #4258a1;
+      box-shadow: 0 12px 30px rgba(66,88,161,0.45);
+      transform: scale(1.05);
+      outline: none;
+    }
+    .success-message {
+      color: #2e7d32;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 700;
+      user-select:none;
+    }
+    /* Footer */
+    footer {
+      background: #152341;
+      padding: 1rem 1rem 1.5rem 1rem;
+      color: #a7b0cb;
+      text-align: center;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+    footer a {
+      color: #6a93c9;
+      margin: 0 0.5rem;
+      transition: color 0.3s ease;
+      cursor:pointer;
+    }
+    footer a:hover, footer a:focus {
+      color: #9db5ff;
+      outline: none;
+    }
+    /* Responsive - Mobile */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      nav ul {
+        display: none;
+      }
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+      section {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      .btn-primary {
+        padding: 0.9rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <!-- React and ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel for JSX transpile -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const {useState, useEffect, useRef} = React;
+
+    // Smooth scroll helper
+    function smoothScrollTo(id) {
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Header Component
+    function Header() {
+      return (
+        <header role="banner">
+          <div className="container navbar">
+            <div className="logo" tabIndex={0} aria-label="Alta Contabilidade Logo">
+              Alta Contabilidade
+            </div>
+            <nav role="navigation" aria-label="Menu principal">
+              <ul>
+                <li><a href="#about" onClick={e => {e.preventDefault(); smoothScrollTo('about')}} tabIndex={0}>Sobre</a></li>
+                <li><a href="#services" onClick={e => {e.preventDefault(); smoothScrollTo('services')}} tabIndex={0}>Serviços</a></li>
+                <li><a href="#testimonials" onClick={e => {e.preventDefault(); smoothScrollTo('testimonials')}} tabIndex={0}>Depoimentos</a></li>
+                <li><a href="#contact" onClick={e => {e.preventDefault(); smoothScrollTo('contact')}} tabIndex={0}>Contato</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+      );
+    }
+
+    // Hero Component
+    function Hero({onConsultClick}) {
+      return (
+        <section className="hero" role="region" aria-label="Seção principal">
+          <h1>Excelência em Gestão Financeira & Contábil Para Sua Empresa</h1>
+          <p>Confiança, precisão e inovação para levar sua contabilidade ao próximo nível.</p>
+          <button className="btn-primary" onClick={onConsultClick} aria-label="Solicitar Consultoria">
+            Solicitar Consultoria
+          </button>
+        </section>
+      );
+    }
+
+    // About component with fade-in on scroll
+    function About() {
+      const ref = useRef(null);
+      const [visible, setVisible] = useState(false);
+
+      useEffect(() => {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if(entry.isIntersecting) setVisible(true);
+          },
+          { threshold: 0.4 }
+        );
+        if(ref.current) observer.observe(ref.current);
+        return () => {
+          if(ref.current) observer.unobserve(ref.current);
+        };
+      }, []);
+      return (
+        <section id="about" className={'about' + (visible ? ' visible' : '')} ref={ref} role="region" aria-label="Sobre a empresa">
+          <h2>Sobre Nós</h2>
+          <p>Somos uma empresa de contabilidade de alto nível, dedicada a oferecer soluções financeiras personalizadas com tecnologia de ponta e atendimento exclusivo. Nossa missão é garantir segurança e crescimento sustentável para os nossos clientes.</p>
+        </section>
+      );
+    }
+
+    // Service Card Component
+    function ServiceCard({icon, title, description}) {
+      return (
+        <article tabIndex={0} className="service-card" role="article" aria-describedby={title.replace(/\s/g,'').toLowerCase()+'Desc'}>
+          <div className="service-icon" aria-hidden="true" dangerouslySetInnerHTML={{__html:icon}} />
+          <h3 className="service-title">{title}</h3>
+          <p id={title.replace(/\s/g,'').toLowerCase()+'Desc'} className="service-desc">{description}</p>
+        </article>
+      );
+    }
+
+    // Services Section
+    function Services() {
+      const services = [
+        {icon: '&#128202;', title: 'Consultoria Financeira', description: 'Análise e planejamento estratégico para otimizar suas finanças empresariais.'},
+        {icon: '&#128179;', title: 'Planejamento Tributário', description: 'Reduza custos e riscos com a melhor estrutura fiscal e contábil para sua empresa.'},
+        {icon: '&#128221;', title: 'Contabilidade Digital', description: 'Processos automatizados, relatórios precisos e acessíveis em tempo real.'},
+        {icon: '&#128188;', title: 'Gestão de Folha', description: 'Controle eficiente da folha de pagamento e obrigações trabalhistas.'},
+      ];
+      return (
+        <section id="services" className="services" role="region" aria-label="Serviços oferecidos">
+          <h2>Serviços</h2>
+          <div className="service-grid" role="list">
+            {services.map((svc, idx) => (
+              <ServiceCard key={idx} icon={svc.icon} title={svc.title} description={svc.description} />
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    // Testimonials Component
+    function Testimonials() {
+      const testimonials = [
+        {
+          quote: 'A Alta Contabilidade transformou a gestão financeira da nossa empresa. Profissionais dedicados e extremamente competentes!',
+          author: 'Fernanda Silva, CEO da TechSol'
+        },
+        {
+          quote: 'Com o planejamento tributário deles, conseguimos otimizar nossos custos e focar no crescimento.',
+          author: 'Carlos Albuquerque, CFO da LogiCorp'
+        },
+        {
+          quote: 'Serviço ágil, eficiente e com total transparência. Recomendo para qualquer empresa que valorize excelência.',
+          author: 'Mariana Costa, Empreendedora'
+        }
+      ];
+      const [index, setIndex] = useState(0);
+
+      function prev() {
+        setIndex((idx) => (idx===0 ? testimonials.length-1 : idx-1));
+      }
+      function next() {
+        setIndex((idx) => (idx===testimonials.length-1 ? 0 : idx+1));
+      }
+
+      return (
+        <section id="testimonials" className="testimonials" role="region" aria-label="Depoimentos de clientes">
+          <h2>Depoimentos</h2>
+          <div id="testimonial-container">
+            <p className="testimonial-quotes" aria-live="polite" aria-atomic="true">"{testimonials[index].quote}"</p>
+            <p className="testimonial-author" aria-atomic="true">- {testimonials[index].author}</p>
+          </div>
+          <div className="testimonial-nav" role="tablist" aria-label="Navegação de depoimentos">
+            <button type="button" aria-label="Depoimento anterior" onClick={prev} tabIndex={0}>&lt;</button>
+            <button type="button" aria-label="Próximo depoimento" onClick={next} tabIndex={0}>&gt;</button>
+          </div>
+        </section>
+      );
+    }
+
+    // Contact Form Component
+    function Contact() {
+      const [formData, setFormData] = useState({name:'', email:'', message:''});
+      const [errors, setErrors] = useState({});
+      const [successMsg, setSuccessMsg] = useState('');
+
+      function validate() {
+        const errs = {};
+        if(formData.name.trim().length < 3) errs.name = 'Por favor, insira seu nome completo com ao menos 3 caracteres.';
+        if(!/^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(formData.email.trim())) errs.email = 'Por favor, insira um e-mail válido.';
+        if(formData.message.trim().length < 10) errs.message = 'A mensagem deve ter ao menos 10 caracteres.';
+        return errs;
+      }
+
+      function handleSubmit(e) {
+        e.preventDefault();
+        const errs = validate();
+        setErrors(errs);
+        setSuccessMsg('');
+        if(Object.keys(errs).length === 0) {
+          setSuccessMsg('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+          setFormData({name:'', email:'', message:''});
+        }
+      }
+
+      function handleChange(e) {
+        const {name, value} = e.target;
+        setFormData((fd) => ({...fd, [name]: value}));
+      }
+
+      return (
+        <section id="contact" className="contact" role="region" aria-label="Formulário de contato">
+          <h2>Fale Conosco</h2>
+          <form onSubmit={handleSubmit} noValidate>
+            <label htmlFor="name">Nome Completo</label>
+            <input
+              id="name" name="name" type="text"
+              value={formData.name}
+              onChange={handleChange}
+              aria-required="true"
+              aria-describedby="name-error"
+              aria-invalid={errors.name ? "true" : "false"}
+              className={errors.name ? "input-error" : ""}
+              autoComplete="name"
+              />
+            <div id="name-error" className="error-message" aria-live="assertive">{errors.name}</div>
+
+            <label htmlFor="email">E-mail</label>
+            <input
+              id="email" name="email" type="email"
+              value={formData.email}
+              onChange={handleChange}
+              aria-required="true"
+              aria-describedby="email-error"
+              aria-invalid={errors.email ? "true" : "false"}
+              className={errors.email ? "input-error" : ""}
+              autoComplete="email"
+              />
+            <div id="email-error" className="error-message" aria-live="assertive">{errors.email}</div>
+
+            <label htmlFor="message">Mensagem</label>
+            <textarea
+              id="message" name="message" rows="4"
+              value={formData.message}
+              onChange={handleChange}
+              aria-required="true"
+              aria-describedby="msg-error"
+              aria-invalid={errors.message ? "true" : "false"}
+              className={errors.message ? "input-error" : ""}
+              />
+            <div id="msg-error" className="error-message" aria-live="assertive">{errors.message}</div>
+
+            <button type="submit" aria-label="Enviar Mensagem">Enviar Mensagem</button>
+          </form>
+          {successMsg && <div className="success-message" role="alert" aria-live="assertive" tabIndex={-1}>{successMsg}</div>}
+        </section>
+      );
+    }
+
+    // Footer Component
+    function Footer() {
+      return (
+        <footer role="contentinfo">
+          <p>© 2024 Alta Contabilidade. Todos os direitos reservados.</p>
+          <p>
+            <a href="#" tabIndex={0} aria-label="Facebook Alta Contabilidade" target="_blank" rel="noopener noreferrer">Facebook</a>{' | '}
+            <a href="#" tabIndex={0} aria-label="LinkedIn Alta Contabilidade" target="_blank" rel="noopener noreferrer">LinkedIn</a>{' | '}
+            <a href="#" tabIndex={0} aria-label="Instagram Alta Contabilidade" target="_blank" rel="noopener noreferrer">Instagram</a>
+          </p>
+        </footer>
+      );
+    }
+
+    // Main App Component
+    function App() {
+      const contactRef = useRef(null);
+      function scrollToContact() {
+        if(contactRef.current) contactRef.current.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      return (
+        <>
+          <Header />
+          <main>
+            <Hero onConsultClick={scrollToContact} />
+            <About />
+            <Services />
+            <Testimonials />
+            <div ref={contactRef}>
+              <Contact />
+            </div>
+          </main>
+          <Footer />
+        </>
+      );
+    }
+
+    // Render app
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+
+  </script>
+</body>
+</html>
+
